@@ -9,7 +9,7 @@ import numpy as np
 import ga_psc_districts
 
 
-STEPS = 1000
+STEPS = 10000
 COUNTIES = 159
 
 
@@ -43,22 +43,13 @@ proposal = partial(recom,
                    node_repeats=2
                    )
 
-# To keep districts about as compact as the original plan, we bound the number
-# of cut edges at 2 times the number of cut edges in the initial plan.
-
-compactness_bound = constraints.UpperBound(
-    lambda p: len(p["cut_edges"]),
-    2 * len(initial_partition["cut_edges"])
-)
-
 # Configure the MarkovChain.
 
 chain = MarkovChain(
     proposal=proposal,
     constraints=[
         # District populations must stay within 5% of equality
-        constraints.within_percent_of_ideal_population(initial_partition, 0.05),
-        compactness_bound
+        constraints.within_percent_of_ideal_population(initial_partition, 0.05)
     ],
     accept=accept.always_accept,
     initial_state=initial_partition,
