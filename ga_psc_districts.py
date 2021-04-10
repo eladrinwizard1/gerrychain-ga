@@ -1,3 +1,6 @@
+# Use the map at http://www.psc.state.ga.us/pscinfo/districts/pscdistricts.htm
+# as a starting assignment
+
 assignment = {
     0: 1,  # Lanier
     1: 1,  # Bryan
