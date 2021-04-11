@@ -62,6 +62,18 @@ for i, partition in enumerate(chain):
     data = list(partition.assignment.items())
     keys = [i for i, _ in data]
     vals = [j for _, j in data]
+
+    # duplicate prevention
+    first = np.zeros(5)
+    pos = []
+    for val in range(1, 6):
+        p = np.where(vals == val)[0]
+        pos.append(p)
+        first[val - 1] = p[0]
+    new_nums = np.argsort(first)
+    for val, num in enumerate(new_nums):
+        vals[pos[num]] = val + 1
+
     maps[i, keys] = vals
 
 maps = np.unique(maps, axis=0)
