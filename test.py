@@ -9,7 +9,7 @@ import numpy as np
 import ga_psc_districts
 
 
-STEPS = 10000
+STEPS = 100000
 COUNTIES = 159
 
 
@@ -59,9 +59,9 @@ chain = MarkovChain(
 maps = np.zeros((STEPS, COUNTIES))
 
 for i, partition in enumerate(chain):
-    data = list(partition.assignment.items())
-    keys = [i for i, _ in data]
-    vals = [j for _, j in data]
+    data = sorted(list(partition.assignment.items()))
+    keys = np.array([i for i, _ in data])
+    vals = np.array([j for _, j in data])
 
     # duplicate prevention
     first = np.zeros(5)
